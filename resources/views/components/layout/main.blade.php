@@ -20,9 +20,24 @@
         </a>
     </x:slot:brand>
 
-    @foreach($navItems as $navItem)
-        <x-ui.navbar-item :route="$navItem['route']">{{ $navItem['title'] }}</x-ui.navbar-item>
-    @endforeach
+    <div class="navbar-start">
+        @foreach($navItems as $navItem)
+            <x-ui.navbar-item :route="$navItem['route']">{{ $navItem['title'] }}</x-ui.navbar-item>
+        @endforeach
+
+        @auth
+            <div class="navbar-item">
+                <form method="POST" action="{{ route('logout') }}" style="display: inline;">
+                    @csrf
+                    <a href="{{ route('logout') }}"
+                       class="navbar-item"
+                       onclick="event.preventDefault(); this.closest('form').submit();">
+                        Log Out
+                    </a>
+                </form>
+            </div>
+        @endauth
+    </div>
 </x-ui.navbar>
 
 {{-- Content --}}
